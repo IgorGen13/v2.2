@@ -1,0 +1,49 @@
+html {
+	--ytd-grid-base: 103px;
+	--ytd-margin-base: 4px;
+	--ytd-avatar-size: 32px;
+	--ytd-toolbar-height: 56px;
+	--ytd-margin-2x: 8px;
+	--ytd-margin-3x: 12px;
+	--ytd-margin-4x: 16px;
+	--ytd-margin-5x: 20px;
+	--ytd-margin-6x: 24px;
+	--ytd-margin-7x: 28px;
+	--ytd-margin-8x: 32px;
+	--ytd-margin-9x: 36px;
+	--ytd-margin-10x: 40px;
+	--ytd-margin-11x: 44px;
+	--ytd-margin-12x: 48px;
+	--ytd-margin-14x: 56px;
+	--ytd-margin-16x: 64px;
+	--ytd-margin-17x: 68px;
+	--ytd-margin-24x: 96px;
+	--ytd-margin-25x: 100px;
+	--ytd-margin-35x: 140px;
+	--ytd-neg-margin-base: -4px;
+	--ytd-neg-margin-2x: -8px;
+	--ytd-neg-margin-3x: -12px;
+	--ytd-neg-margin-4x: -16px;
+	--ytd-neg-margin-5x: -20px;
+	--ytd-neg-margin-6x: -24px;
+	--ytd-neg-margin-7x: -28px;
+	--ytd-neg-margin-8x: -32px;
+	--ytd-neg-margin-10x: -40px;
+	--ytd-neg-margin-11x: -44px;
+	--ytd-neg-margin-12x: -48px;
+	--ytd-neg-margin-14x: -56px;
+	--ytd-neg-margin-16x: -64px;
+	--ytd-neg-margin-24x: -96px;
+	--ytd-neg-margin-25x: -100px;
+	--yt-report-form-modal-renderer-min-width: 250px;
+	--yt-legal-report-details-form-renderer-min-width: 250px;
+	--yt-upsell-dialog-layout-vertical-width: 400px;
+	--yt-upsell-dialog-layout-horizontal-width: 800px;
+}
+
+body {
+	margin: 0;
+}
+.video-js {
+	background-color: transparent !important;
+}
