@@ -44,8 +44,8 @@
 	width: calc(56.25vh - 72px - var(--ytd-shorts-top-spacing, 0px) * .5625);
 	margin: 0 var(--ytd-margin-3x);
 	margin-top: var(--ytd-margin-6x);
-	min-height: var(--ytd-reels-min-height, 560px);
-	min-width: 315px;
+	min-height: var(--ytd-reels-min-height, 360px);
+	//min-width: 315px;
 	right: 0;
 	scroll-snap-align: start;
 	scroll-snap-stop: always;
@@ -54,6 +54,7 @@
 	font-size: 80px;
 	font-weight: bold;
 	flex-shrink: 0;
+
 	&:last-child {
 		margin-bottom: var(--ytd-margin-6x);
 	}

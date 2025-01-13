@@ -33,8 +33,6 @@ export const MainPage = ({ cards }: any) => {
 
 	return (
 		<div className={styles.page}>
-			<div className={styles.header} />
-
 			<div className={styles.wrapper} ref={wrapperRef} onScroll={updateCards}>
 				{cards.map((card, index) => (
 					<div
