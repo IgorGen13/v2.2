@@ -1,3 +1,7 @@
 /*  
-  Access-Control-Allow-Origin: *  
-  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Content-Security-Policy: default-src 'self' https:; 
+  script-src 'self' https://telegram.org https://*.telegram.org 'unsafe-inline'; 
+  connect-src 'self' https://api.telegram.org https://*.telegram.org; 
+  img-src 'self' data: https:; 
+  frame-src https://t.me https://telegram.org; 
+  style-src 'self' 'unsafe-inline';
