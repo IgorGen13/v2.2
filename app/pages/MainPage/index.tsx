@@ -2,6 +2,8 @@ import styles from './index.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import Video from '~/components/Video';
+import { ErrorBoundary } from 'react-error-boundary';
+
 
 export const MainPage = ({ cards }: any) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,7 @@ export const MainPage = ({ cards }: any) => {
 
 	return (
 		<div className={styles.page}>
+			<ErrorBoundary fallback={<div>Произошла ошибка. Попробуйте снова позже.</div>}>
 			<div className={styles.wrapper} ref={wrapperRef} onScroll={updateCards}>
 				{cards.map((card, index) => (
 					<div
@@ -57,6 +60,7 @@ export const MainPage = ({ cards }: any) => {
 					</div>
 				))}
 			</div>
+			</ErrorBoundary>
 		</div>
 	);
 };

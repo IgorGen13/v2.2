@@ -1,6 +1,6 @@
 /*
   Content-Security-Policy: default-src 'self' https:; 
-  script-src 'self' https://telegram.org https://*.telegram.org 'unsafe-inline' 'unsafe-eval'; 
+  script-src 'self' https://telegram.org https://*.telegram.org 'unsafe-inline';
   connect-src 'self' https://api.telegram.org https://*.telegram.org; 
   img-src 'self' data: https:; 
   frame-src https://t.me https://telegram.org; 

@@ -24,8 +24,10 @@
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^5.0.0",
     "react-player": "^2.15.1",
     "regenerator-runtime": "^0.14.1",
+    "remix": "^2.15.2",
     "sass": "^1.72.0",
     "terser": "^5.37.0",
     "video.js": "^8.10.0"
