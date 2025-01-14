@@ -15,7 +15,7 @@ export default defineConfig({
 	build: {
 		sourcemap: process.env.NODE_ENV === 'production', // Включает sourcemap в продакшене
 		target: 'es2015',
-		minify: 'terser',  // Поменяли минификатор на более совместимый
+		minify: false,  // Поменяли минификатор на более совместимый
 	},
 	esbuild: {
 		jsxFactory: 'React.createElement',
