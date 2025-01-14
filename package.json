@@ -19,12 +19,15 @@
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@remix-run/serve": "^2.8.1",
+    "core-js": "^3.40.0",
     "dashjs": "^4.7.4",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-player": "^2.15.1",
+    "regenerator-runtime": "^0.14.1",
     "sass": "^1.72.0",
+    "terser": "^5.37.0",
     "video.js": "^8.10.0"
   },
   "devDependencies": {
