@@ -7,9 +7,18 @@ installGlobals();
 
 export default defineConfig({
 	plugins: [
-		remix({
-			ssr: false,
-		}),
-		tsconfigPaths(),
+	  remix({
+		ssr: false,
+	  }),
+	  tsconfigPaths(),
 	],
-});
+	build: {
+	  sourcemap: true,      // 🔍 Включаем Source Maps для отладки
+	  target: 'es2015',     // 📱 Поддержка старых браузеров
+	  minify: 'esbuild',    // ⚡ Быстрая сборка (можно заменить на 'terser' для гибкости)
+	},
+	esbuild: {
+	  jsxFactory: 'React.createElement',
+	  jsxFragment: 'React.Fragment',
+	},
+  });
