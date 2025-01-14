@@ -1,11 +1,16 @@
 /*
-Content-Security-Policy: default-src 'self' https:; 
-script-src 'self' https://telegram.org https://*.telegram.org 'unsafe-inline' 'unsafe-eval'; 
-connect-src 'self' https://api.telegram.org https://*.telegram.org; 
-img-src 'self' data: https:; 
-frame-src https://t.me https://telegram.org; 
-style-src 'self' 'unsafe-inline'; 
-font-src 'self' https://fonts.gstatic.com; 
-object-src 'none'; 
-upgrade-insecure-requests;
-base-uri 'self';
+  Content-Security-Policy: default-src 'self' https:; 
+  script-src 'self' https://telegram.org https://*.telegram.org 'unsafe-inline' 'unsafe-eval'; 
+  connect-src 'self' https://api.telegram.org https://*.telegram.org; 
+  img-src 'self' data: https:; 
+  frame-src https://t.me https://telegram.org; 
+  style-src 'self' 'unsafe-inline'; 
+  font-src 'self' https://fonts.gstatic.com; 
+  object-src 'none'; 
+  upgrade-insecure-requests;
+  base-uri 'self';
+  manifest-src 'self';
+
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
