@@ -4,7 +4,7 @@ export const MuteButton = ({ muted, className, onClick }: any) => {
 	if (muted === true) {
 		return (
 			<div onClick={onClick} className={className}>
-				<svg style={{ width: '24px', height: '24px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+				<svg style={{ width: '24px', height: '24px' }} xmlns="https://www.w3.org/2000/svg" viewBox="0 0 576 512">
 					<path d="M301.1 34.8C312.6 40 320 51.4 320 64v384c0 12.6-7.4 24-18.9 29.2-11.5 5.2-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64v-64c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3z" />
 				</svg>
 			</div>
@@ -12,7 +12,7 @@ export const MuteButton = ({ muted, className, onClick }: any) => {
 	}
 	return (
 		<div onClick={onClick} className={className}>
-			<svg style={{ width: '24px', height: '24px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+			<svg style={{ width: '24px', height: '24px' }} xmlns="https://www.w3.org/2000/svg" viewBox="0 0 576 512">
 				<path d="M473.1 107c43.2 35.2 70.9 88.9 70.9 149 0 60.1-27.7 113.8-70.9 149-10.3 8.4-25.4 6.8-33.8-3.5-8.4-10.3-6.8-25.4 3.5-33.8C475.3 341.3 496 301.1 496 256c0-45.1-20.7-85.3-53.2-111.8-10.3-8.4-11.8-23.5-3.5-33.8 8.3-10.3 23.5-11.8 33.8-3.5zm-60.5 74.5c21.5 17.6 35.4 44.4 35.4 74.5s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5-8.4-10.3-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256c0-15-6.9-28.4-17.7-37.3-10.3-8.4-11.8-23.5-3.5-33.8 8.3-10.3 23.5-11.8 33.8-3.5zM301.1 34.8C312.6 40 320 51.4 320 64v384c0 12.6-7.4 24-18.9 29.2-11.5 5.2-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64v-64c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3z" />
 			</svg>
 		</div>

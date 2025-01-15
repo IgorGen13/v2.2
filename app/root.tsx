@@ -1,6 +1,13 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { useEffect } from 'react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+	useEffect(() => {
+		console.log('Hydration complete');
+	  }, []);
+
+
 	return (
 		<html lang="en">
 			<head>
