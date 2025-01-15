@@ -15,7 +15,7 @@ export const MainPage = ({ cards }: any) => {
 	const [muted, setMuted] = useState(true);
 
 	const updateCards = () => {
-		const index = cards.findIndex((_, index) => {
+		const index = cards.findIndex((_: any, index: any) => {
 			if (wrapperRef.current) {
 				const element = cardRefs.current[index];
 				if (element) {
@@ -32,12 +32,12 @@ export const MainPage = ({ cards }: any) => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(updateCards, []);
-
+	console.log('123123')
 	return (
 		<div className={styles.page}>
 			{/* <ErrorBoundary fallback={<div>Произошла ошибка. Попробуйте снова позже.</div>}> */}
 			<div className={styles.wrapper} ref={wrapperRef} onScroll={updateCards}>
-				{cards.map((card, index) => (
+				{cards.map((card: any, index: any) => (
 					<div
 						key={card.src}
 						ref={(ref) => (cardRefs.current[index] = ref)}
@@ -45,9 +45,9 @@ export const MainPage = ({ cards }: any) => {
 					>
 						<Video
 							muted={muted}
-							onChangeMuted={(muted) => setMuted(muted)}
+							onChangeMuted={(muted: any) => setMuted(muted)}
 							active={activeCard === index}
-							next={activeCard + 1 === index}
+							next={activeCard !== null && activeCard + 1 === index}
 							className={styles.video}
 							background={card.thumbnail}
 							url={card.src}
