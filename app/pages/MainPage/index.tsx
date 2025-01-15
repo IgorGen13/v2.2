@@ -35,7 +35,7 @@ export const MainPage = ({ cards }: any) => {
 
 	return (
 		<div className={styles.page}>
-			<ErrorBoundary fallback={<div>Произошла ошибка. Попробуйте снова позже.</div>}>
+			{/* <ErrorBoundary fallback={<div>Произошла ошибка. Попробуйте снова позже.</div>}> */}
 			<div className={styles.wrapper} ref={wrapperRef} onScroll={updateCards}>
 				{cards.map((card, index) => (
 					<div
@@ -60,7 +60,7 @@ export const MainPage = ({ cards }: any) => {
 					</div>
 				))}
 			</div>
-			</ErrorBoundary>
+			{/* </ErrorBoundary> */}
 		</div>
 	);
 };
