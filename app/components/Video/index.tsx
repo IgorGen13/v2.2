@@ -5,6 +5,7 @@ import { useLatest } from '~/hooks/useLatest';
 import { MuteButton } from './MuteButton';
 import styles from './index.module.scss';
 import classNames from 'classnames';
+import Hls from 'hls.js';
 
 export const VideoJS = (props: any) => {
 	const videoRef = React.useRef<any>(null);
@@ -18,54 +19,68 @@ export const VideoJS = (props: any) => {
 	const latestProps = useLatest(props);
 
 	const [paused, setPaused] = useState(true);
-
+	
 	useEffect(() => {
-		if (playerRef.current) {
+		if (playerRef.current && videoRef.current) {
 			videoRef.current.muted = muted;
-			playerRef.current.setMute(muted);
 		}
 	}, [muted]);
-
+	
 	useEffect(() => {
-		if (playerRef.current) {
+		if (playerRef.current && videoRef.current) {
 			if (paused || !active) {
-				playerRef.current.pause();
+				videoRef.current.pause();
 			} else {
-				playerRef.current.play();
+				videoRef.current.play();
 			}
 		}
-	}, [muted, paused, active]);
-
+	}, [paused, active]);
+	
 	useEffect(() => {
 		if (active || next) {
-			// Make sure Video.js player is only initialized once
-			if (!playerRef.current) {
-				const player = (playerRef.current = dashjs.MediaPlayer().create());
-
-				player.on(dashjs.MediaPlayer.events.PLAYBACK_NOT_ALLOWED, function () {
-					onChangeMuted(true);
-					player.initialize(videoRef.current, url, active);
-				});
-
-				player.initialize(videoRef.current, url, active);
-				videoRef.current.muted = muted;
-				playerRef.current.setMute(muted);
+			if (!playerRef.current && videoRef.current) {
+				// Проверка поддержки HLS
+				if (Hls.isSupported()) {
+					const hls = new Hls();
+					playerRef.current = hls;
+	
+					hls.loadSource(url);
+					hls.attachMedia(videoRef.current);
+	
+					hls.on(Hls.Events.MANIFEST_PARSED, () => {
+						if (active) {
+							videoRef.current.play();
+						}
+					});
+	
+					videoRef.current.muted = muted;
+				} else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+					// Нативная поддержка HLS на iOS
+					videoRef.current.src = url;
+					videoRef.current.muted = muted;
+	
+					videoRef.current.addEventListener('loadedmetadata', () => {
+						if (active) {
+							videoRef.current.play();
+						}
+					});
+				}
 			}
 		}
-	}, [videoRef, next, active]);
-
-	// Dispose the Video.js player when the functional component unmounts
-	React.useEffect(() => {
-		const player = playerRef.current;
-
+	}, [videoRef, next, active, url, muted]);
+	
+	// Очистка плеера при размонтировании компонента
+	useEffect(() => {
 		return () => {
-			if (player) {
-				player.reset();
+			if (playerRef.current) {
+				if (playerRef.current instanceof Hls) {
+					playerRef.current.destroy();
+				}
 				playerRef.current = null;
 			}
 		};
-	}, [playerRef]);
-
+	}, []);
+	
 	useEffect(() => {
 		if (playerRef.current) {
 			if (active) {
@@ -75,7 +90,9 @@ export const VideoJS = (props: any) => {
 				if (!next) {
 					setTimeout(() => {
 						if (!latestProps.current.next && !latestProps.current.active) {
-							playerRef.current?.reset();
+							if (playerRef.current instanceof Hls) {
+								playerRef.current.destroy();
+							}
 							playerRef.current = null;
 						}
 					}, 500);
@@ -83,6 +100,7 @@ export const VideoJS = (props: any) => {
 			}
 		}
 	}, [active, next]);
+	
 
 	return (
 		<div className={props.className}>

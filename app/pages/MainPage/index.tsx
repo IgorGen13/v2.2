@@ -32,7 +32,7 @@ export const MainPage = ({ cards }: any) => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(updateCards, []);
-	console.log('123123')
+
 	return (
 		<div className={styles.page}>
 			{/* <ErrorBoundary fallback={<div>Произошла ошибка. Попробуйте снова позже.</div>}> */}
@@ -45,9 +45,9 @@ export const MainPage = ({ cards }: any) => {
 					>
 						<Video
 							muted={muted}
-							onChangeMuted={(muted: any) => setMuted(muted)}
+							onChangeMuted={(muted) => setMuted(muted)}
 							active={activeCard === index}
-							next={activeCard !== null && activeCard + 1 === index}
+							next={activeCard + 1 === index}
 							className={styles.video}
 							background={card.thumbnail}
 							url={card.src}
