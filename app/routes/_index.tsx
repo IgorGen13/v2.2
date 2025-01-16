@@ -3,7 +3,7 @@ import '../styles/constants.scss';
 import { MainPage } from '../pages/MainPage';
 
 export const meta: MetaFunction = () => {
-	return [{ title: 'MPD' }, { name: 'description', content: 'Welcome to Remix!' }];
+	return [{ title: 'HLS' }, { name: 'description', content: 'Welcome to Remix!' }];
 };
 
 export default function Index() {
@@ -11,9 +11,10 @@ export default function Index() {
 		<div>
 			<MainPage
 				cards={[
-					{ src: '/video/dash/1.mpd', thumbnail: '/video/1.jpg' },
-					{ src: '/video/dash/2.mpd', thumbnail: '/video/2.jpg' },
-					{ src: '/video/dash/3.mpd', thumbnail: '/video/3.jpg' },
+					{ src: '/video/hls/1.m3u8', thumbnail: '/video/1.jpg' },
+					{ src: '/video/hls/2.m3u8', thumbnail: '/video/2.jpg' },
+					{ src: '/video/hls/3.m3u8', thumbnail: '/video/3.jpg' },
+
 				]}
 			/>
 		</div>

@@ -19,15 +19,17 @@ export const VideoJS = (props: any) => {
 	const latestProps = useLatest(props);
 
 	const [paused, setPaused] = useState(true);
-	
+
 	useEffect(() => {
 		if (playerRef.current && videoRef.current) {
+			console.log('Muted state applied:', muted);
 			videoRef.current.muted = muted;
 		}
 	}, [muted]);
-	
+
 	useEffect(() => {
 		if (playerRef.current && videoRef.current) {
+			console.log('Playback state:', paused, active);
 			if (paused || !active) {
 				videoRef.current.pause();
 			} else {
@@ -35,40 +37,62 @@ export const VideoJS = (props: any) => {
 			}
 		}
 	}, [paused, active]);
-	
+
 	useEffect(() => {
 		if (active || next) {
 			if (!playerRef.current && videoRef.current) {
-				// Проверка поддержки HLS
-				if (Hls.isSupported()) {
-					const hls = new Hls();
-					playerRef.current = hls;
-	
-					hls.loadSource(url);
-					hls.attachMedia(videoRef.current);
-	
-					hls.on(Hls.Events.MANIFEST_PARSED, () => {
-						if (active) {
-							videoRef.current.play();
+				console.log('HLS is supported. Initializing Hls.js.');
+				const hls = new Hls();
+				playerRef.current = hls;
+				hls.loadSource(url);
+				console.log('HLS loadSource called with URL:', url);
+				hls.attachMedia(videoRef.current);
+				console.log('HLS attachMedia called with video element:', videoRef.current);
+				videoRef.current.load();
+				console.log('videoRef load called.');
+				hls.on(Hls.Events.MANIFEST_PARSED, () => {
+					console.log('Manifest parsed. Playing video.');
+					if (active) {
+						videoRef.current.play();
+					}
+				});
+				hls.on(Hls.Events.ERROR, function(event, data) {
+					if (data.fatal) {
+						switch (data.type) {
+							case Hls.ErrorTypes.NETWORK_ERROR:
+								console.error('Network error encountered:', data);
+								break;
+							case Hls.ErrorTypes.MEDIA_ERROR:
+								console.error('Media error encountered:', data);
+								break;
+							default:
+								console.error('General error encountered:', data);
+								break;
 						}
-					});
-	
-					videoRef.current.muted = muted;
-				} else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-					// Нативная поддержка HLS на iOS
-					videoRef.current.src = url;
-					videoRef.current.muted = muted;
-	
-					videoRef.current.addEventListener('loadedmetadata', () => {
-						if (active) {
-							videoRef.current.play();
-						}
-					});
-				}
+					} else {
+						console.warn('Non-fatal error encountered:', data);
+					}
+				});
+				videoRef.current.muted = muted;
+			} else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+				console.log('Native HLS support detected.');
+				videoRef.current.src = url;
+				videoRef.current.load();
+				videoRef.current.muted = muted;
+				videoRef.current.addEventListener('loadedmetadata', () => {
+					console.log('Metadata loaded. Playing video.');
+					if (active) {
+						videoRef.current.play();
+					}
+				});
+				videoRef.current.addEventListener('error', (event: any) => {
+					console.error('Video element error:', event);
+				});
 			}
 		}
 	}, [videoRef, next, active, url, muted]);
 	
+
 	// Очистка плеера при размонтировании компонента
 	useEffect(() => {
 		return () => {
@@ -80,7 +104,7 @@ export const VideoJS = (props: any) => {
 			}
 		};
 	}, []);
-	
+
 	useEffect(() => {
 		if (playerRef.current) {
 			if (active) {
@@ -100,12 +124,19 @@ export const VideoJS = (props: any) => {
 			}
 		}
 	}, [active, next]);
-	
+
+	useEffect(() => {
+		if (videoRef.current) {
+			videoRef.current.load(); // Перезагрузка видео при смене URL
+		}
+	}, [url]);
 
 	return (
 		<div className={props.className}>
 			<video
 				className={styles.card}
+				preload="auto"
+				crossOrigin="anonymous"
 				loop
 				onLoadStart={() => {
 					setShowSpinner(true);

@@ -35,7 +35,6 @@ export const MainPage = ({ cards }: any) => {
 
 	return (
 		<div className={styles.page}>
-			{/* <ErrorBoundary fallback={<div>Произошла ошибка. Попробуйте снова позже.</div>}> */}
 			<div className={styles.wrapper} ref={wrapperRef} onScroll={updateCards}>
 				{cards.map((card: any, index: any) => (
 					<div
@@ -45,7 +44,7 @@ export const MainPage = ({ cards }: any) => {
 					>
 						<Video
 							muted={muted}
-							onChangeMuted={(muted) => setMuted(muted)}
+							onChangeMuted={(muted: any) => setMuted(muted)}
 							active={activeCard === index}
 							next={activeCard + 1 === index}
 							className={styles.video}
@@ -54,13 +53,12 @@ export const MainPage = ({ cards }: any) => {
 							options={{
 								fill: true,
 								preload: 'auto',
-								sources: [card.src],
+								sources: [{ src: card.src, type: 'application/x-mpegURL' }]
 							}}
 						/>
 					</div>
 				))}
 			</div>
-			{/* </ErrorBoundary> */}
 		</div>
 	);
 };
