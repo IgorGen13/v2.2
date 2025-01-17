@@ -22,14 +22,12 @@ export const VideoJS = (props: any) => {
 
 	useEffect(() => {
 		if (playerRef.current && videoRef.current) {
-			console.log('Muted state applied:', muted);
 			videoRef.current.muted = muted;
 		}
 	}, [muted]);
 
 	useEffect(() => {
 		if (playerRef.current && videoRef.current) {
-			console.log('Playback state:', paused, active);
 			if (paused || !active) {
 				videoRef.current.pause();
 			} else {
@@ -41,17 +39,12 @@ export const VideoJS = (props: any) => {
 	useEffect(() => {
 		if (active || next) {
 			if (!playerRef.current && videoRef.current) {
-				console.log('HLS is supported. Initializing Hls.js.');
 				const hls = new Hls();
 				playerRef.current = hls;
 				hls.loadSource(url);
-				console.log('HLS loadSource called with URL:', url);
 				hls.attachMedia(videoRef.current);
-				console.log('HLS attachMedia called with video element:', videoRef.current);
 				videoRef.current.load();
-				console.log('videoRef load called.');
 				hls.on(Hls.Events.MANIFEST_PARSED, () => {
-					console.log('Manifest parsed. Playing video.');
 					if (active) {
 						videoRef.current.play();
 					}
@@ -74,26 +67,28 @@ export const VideoJS = (props: any) => {
 					}
 				});
 				videoRef.current.muted = muted;
-			} else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-				console.log('Native HLS support detected.');
-				videoRef.current.src = url;
-				videoRef.current.load();
-				videoRef.current.muted = muted;
-				videoRef.current.addEventListener('loadedmetadata', () => {
-					console.log('Metadata loaded. Playing video.');
-					if (active) {
-						videoRef.current.play();
-					}
-				});
-				videoRef.current.addEventListener('error', (event: any) => {
-					console.error('Video element error:', event);
-				});
-			}
+			} 
+			//на данном этапе возникает проблема на мобильном устройстве при включении звука видео воспроизводится заново
+
+			// else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+			// 	console.log('Native HLS support detected.');
+			// 	videoRef.current.src = url;
+			// 	videoRef.current.load();
+			// 	videoRef.current.muted = muted;
+			// 	videoRef.current.addEventListener('loadedmetadata', () => {
+			// 		console.log('Metadata loaded. Playing video.');
+			// 		if (active) {
+			// 			videoRef.current.play();
+			// 		}
+			// 	});
+			// 	videoRef.current.addEventListener('error', (event: any) => {
+			// 		console.error('Video element error:', event);
+			// 	});
+			// }
 		}
 	}, [videoRef, next, active, url, muted]);
 	
 
-	// Очистка плеера при размонтировании компонента
 	useEffect(() => {
 		return () => {
 			if (playerRef.current) {
@@ -138,6 +133,8 @@ export const VideoJS = (props: any) => {
 				preload="auto"
 				crossOrigin="anonymous"
 				loop
+				playsInline 
+				webkit-playsinline
 				onLoadStart={() => {
 					setShowSpinner(true);
 				}}
