@@ -39,7 +39,12 @@ export const VideoJS = (props: any) => {
 	useEffect(() => {
 		if (active || next) {
 			if (!playerRef.current && videoRef.current) {
-				const hls = new Hls();
+				const hls = new Hls({
+					startLevel: -1, // Позволяет Hls.js выбрать наилучший начальный уровень
+					maxBufferLength: 30, // Максимальная длина буфера
+					maxMaxBufferLength: 600, // Максимальная длина буфера (ограничение)
+					enableWorker: true, // Включает worker для улучшения производительности
+				  });
 				playerRef.current = hls;
 				hls.loadSource(url);
 				hls.attachMedia(videoRef.current);
